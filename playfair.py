@@ -1,3 +1,5 @@
+import sys
+
 _trash="X"
 
 ##Input: encryption key
@@ -5,28 +7,27 @@ _trash="X"
 def build_matrix(key):
 	#Create the matrix/vector from the key
 	v_matrix=[]
-	for e in key.upper():
+	for e in key:
 		if e not in v_matrix:
 			v_matrix.append(e)
 
 	#Complete the matrix with alphabet
-	alphabet="ABCDEFGHIKLMNOPQRSTUVWXYZ"
+	alphabet=30
 
-	for e in alphabet:
+	for a in range(alphabet,256):
+		e=chr(a)
 		if e not in v_matrix:
 			v_matrix.append(e)
 
-	#"Initializes" the matrix 5x5
+	#"Initializes" the matrix 15x15
 	matrix=[]
-	for e in range(5):
+	for e in range(15):
 		matrix.append('')
 
 	#Break it into 5*5
-	matrix[0]=v_matrix[0:5]
-	matrix[1]=v_matrix[5:10]
-	matrix[2]=v_matrix[10:15]
-	matrix[3]=v_matrix[15:20]
-	matrix[4]=v_matrix[20:25]
+	for e in range(15):
+		matrix[e]=v_matrix[e*15:(e+1)*15]
+
 	return matrix
 
 ##Input: array with message
@@ -42,16 +43,10 @@ def array_to_digraphs(message):
 ##Input: original message
 ##Output: vector of digraphs
 def clear_message(message_original):
-	message_original=message_original.upper()
 	#Change it to array to use useful methods
 	message=[]
 	for e in message_original:
 		message.append(e)
-
-	#Remove spaces from message
-	for unused in range(len(message)):
-		if " " in message:
-			message.remove(" ")
 
 	#If both letters are the same, add an "X" after the first letter.
 	i=0
@@ -70,15 +65,15 @@ def clear_message(message_original):
 ##Output: encrypted letter
 def find_position(key_matrix,letter):
 	x=y=0
-	for i in range(5):
-		for j in range(5):
+	for i in range(15):
+		for j in range(15):
 			if key_matrix[i][j]==letter:
 				x=i
 				y=j
 
 	return x,y
 
-def encrypt(message):
+def encrypt(key, message):
 	#Clear/format message
 	message=clear_message(message)
 	#Create list of diagraphs from the message
@@ -94,17 +89,17 @@ def encrypt(message):
 
 		#If letters on the same line, circular shift on the right
 		if p1==p2:
-			if q1==4:
+			if q1==14:
 				q1=-1
-			if q2==4:
+			if q2==14:
 				q2=-1
 			cipher.append(key_matrix[p1][q1+1])
 			cipher.append(key_matrix[p1][q2+1])
 		#If letters in the same column, circular shift below
 		elif q1==q2:
-			if p1==4:
+			if p1==14:
 				p1=-1;
-			if p2==4:
+			if p2==14:
 				p2=-1;
 			cipher.append(key_matrix[p1+1][q1])
 			cipher.append(key_matrix[p2+1][q2])
@@ -114,7 +109,7 @@ def encrypt(message):
 	return ''.join(cipher)
 
 ##
-def decrypt(cipher):
+def decrypt(key, cipher):
 	#Create list of diagraphs from the cipher
 	cipher=array_to_digraphs(cipher)
 	#Create matrix from key
@@ -127,17 +122,17 @@ def decrypt(cipher):
 		p2,q2=find_position(key_matrix,e[1])
 		#If letters on the same line, circular shift on the left
 		if p1==p2:
-			if q1==4:
+			if q1==14:
 				q1=-1
-			if q2==4:
+			if q2==14:
 				q2=-1
 			plaintext.append(key_matrix[p1][q1-1])
 			plaintext.append(key_matrix[p1][q2-1])		
 		#If letters in the same column, circular shift above
 		elif q1==q2:
-			if p1==4:
+			if p1==14:
 				p1=-1;
-			if p2==4:
+			if p2==14:
 				p2=-1;
 			plaintext.append(key_matrix[p1-1][q1])
 			plaintext.append(key_matrix[p2-1][q2])
@@ -154,20 +149,22 @@ def decrypt(cipher):
 	return ''.join(plaintext)
 
 ##main
-print "Playfair Cipher"
-order=input("Choose :\n1,Encrypting \n2,Decrypting\n")
+order=input()
 if order==1:
-	key=raw_input("Please input the key : ")
-	message=raw_input("Please input the message : ")
-	print "Encrypting: \n"+"Message: "+message
-	print "Cipher: " 
-	print encrypt(message)
+	key=raw_input()
+	with open("claro", "r") as f:
+	    message=f.read()
+	
+	message=encrypt(key, message)
+
+	sys.stdout.write(message)
 elif order==2:
-	key=raw_input("Please input the key : ")
-	cipher=raw_input("Please input the cipher text: ")
-	#cipher="ILSYQFBWBMLIAFFQ"
-	print "\nDecrypting: \n"+"Cipher: "+cipher
-	print "Plaintext:"
-	print decrypt(cipher)
+	key=raw_input()
+	with open("criptografado", "rb") as f:
+	    cipher=f.read()
+
+	cipher=decrypt(key, cipher)
+
+	sys.stdout.write(cipher)
 else:
 	print "Error"
