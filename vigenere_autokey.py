@@ -1,9 +1,9 @@
 import sys
 
-def encrypt(key_s, message_s):
-	alphabet_init=30
-	alphabet_size=226
+alphabet_b=10
+alphabet_e=15*15+alphabet_b
 
+def encrypt(key_s, message_s):
 	#Change it to array to use useful methods
 	key=[]
 	for e in key_s:
@@ -18,17 +18,14 @@ def encrypt(key_s, message_s):
 	for i in range(len(message)):
 		key.append(message[i])
 
-		p = ord(message[i]) - alphabet_init
-		k = ord(key[i]) - alphabet_init
-		c = (p+k)%alphabet_size + alphabet_init
+		p = ord(message[i]) - alphabet_b
+		k = ord(key[i]) - alphabet_b
+		c = (p+k)%alphabet_e + alphabet_b
 		cipher.append(chr(c))
 
 	return ''.join(cipher)
 
 def decrypt(key_s, cipher_s):
-	alphabet_init=30
-	alphabet_size=226
-
 	#Change it to array to use useful methods
 	key_s=key_s
 	key=[]
@@ -42,9 +39,9 @@ def decrypt(key_s, cipher_s):
 	message=[]
 	i=0
 	for i in range(len(cipher)):
-		c = ord(cipher[i]) - alphabet_init
-		k = ord(key[i]) - alphabet_init
-		p = (c-k+alphabet_size)%alphabet_size + alphabet_init
+		c = ord(cipher[i]) - alphabet_b
+		k = ord(key[i]) - alphabet_b
+		p = (c-k+alphabet_e)%alphabet_e + alphabet_b
 		message.append(chr(p))
 
 		key.append(message[i])

@@ -1,6 +1,8 @@
 import sys
 
 _trash=chr(228)
+alphabet_b=10
+alphabet_e=15*15+alphabet_b
 
 ##Input: encryption key
 ##Output: matrix built
@@ -12,9 +14,7 @@ def build_matrix(key):
 			v_matrix.append(e)
 
 	#Complete the matrix with alphabet
-	alphabet=30
-
-	for a in range(alphabet,256):
+	for a in range(alphabet_b,alphabet_e):
 		e=chr(a)
 		if e not in v_matrix:
 			v_matrix.append(e)
@@ -148,3 +148,23 @@ def decrypt_pf(key, cipher):
 	#Convert array to string
 	return ''.join(plaintext)
 
+##main
+order=input()
+if order==1:
+	key=raw_input()
+	with open("claro", "r") as f:
+	    message=f.read()
+	
+	message=encrypt_pf(key, message)
+
+	sys.stdout.write(message)
+elif order==2:
+	key=raw_input()
+	with open("criptografado", "rb") as f:
+	    cipher=f.read()
+
+	cipher=decrypt_pf(key, cipher)
+
+	sys.stdout.write(cipher)
+else:
+	print "Error"
