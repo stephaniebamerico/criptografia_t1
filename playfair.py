@@ -1,6 +1,6 @@
 import sys
 
-_trash="X"
+_trash=chr(228)
 
 ##Input: encryption key
 ##Output: matrix built
@@ -73,7 +73,7 @@ def find_position(key_matrix,letter):
 
 	return x,y
 
-def encrypt(key, message):
+def encrypt_pf(key, message):
 	#Clear/format message
 	message=clear_message(message)
 	#Create list of diagraphs from the message
@@ -109,7 +109,7 @@ def encrypt(key, message):
 	return ''.join(cipher)
 
 ##
-def decrypt(key, cipher):
+def decrypt_pf(key, cipher):
 	#Create list of diagraphs from the cipher
 	cipher=array_to_digraphs(cipher)
 	#Create matrix from key
@@ -148,23 +148,3 @@ def decrypt(key, cipher):
 	#Convert array to string
 	return ''.join(plaintext)
 
-##main
-order=input()
-if order==1:
-	key=raw_input()
-	with open("claro", "r") as f:
-	    message=f.read()
-	
-	message=encrypt(key, message)
-
-	sys.stdout.write(message)
-elif order==2:
-	key=raw_input()
-	with open("criptografado", "rb") as f:
-	    cipher=f.read()
-
-	cipher=decrypt(key, cipher)
-
-	sys.stdout.write(cipher)
-else:
-	print "Error"
