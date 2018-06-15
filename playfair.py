@@ -1,8 +1,9 @@
 import sys
 
 _trash=chr(228)
-alphabet_b=10
-alphabet_e=15*15+alphabet_b
+
+range_t=16
+alphabet_e=range_t*range_t
 
 ##Input: encryption key
 ##Output: matrix built
@@ -14,19 +15,19 @@ def build_matrix(key):
 			v_matrix.append(e)
 
 	#Complete the matrix with alphabet
-	for a in range(alphabet_b,alphabet_e):
+	for a in range(alphabet_e):
 		e=chr(a)
 		if e not in v_matrix:
 			v_matrix.append(e)
 
 	#"Initializes" the matrix 15x15
 	matrix=[]
-	for e in range(15):
+	for e in range(range_t):
 		matrix.append('')
 
 	#Break it into 5*5
-	for e in range(15):
-		matrix[e]=v_matrix[e*15:(e+1)*15]
+	for e in range(range_t):
+		matrix[e]=v_matrix[e*range_t:(e+1)*range_t]
 
 	return matrix
 
@@ -65,8 +66,8 @@ def clear_message(message_original):
 ##Output: encrypted letter
 def find_position(key_matrix,letter):
 	x=y=0
-	for i in range(15):
-		for j in range(15):
+	for i in range(range_t):
+		for j in range(range_t):
 			if key_matrix[i][j]==letter:
 				x=i
 				y=j
@@ -89,17 +90,17 @@ def encrypt_pf(key, message):
 
 		#If letters on the same line, circular shift on the right
 		if p1==p2:
-			if q1==14:
+			if q1==(range_t-1):
 				q1=-1
-			if q2==14:
+			if q2==(range_t-1):
 				q2=-1
 			cipher.append(key_matrix[p1][q1+1])
 			cipher.append(key_matrix[p1][q2+1])
 		#If letters in the same column, circular shift below
 		elif q1==q2:
-			if p1==14:
+			if p1==(range_t-1):
 				p1=-1;
-			if p2==14:
+			if p2==(range_t-1):
 				p2=-1;
 			cipher.append(key_matrix[p1+1][q1])
 			cipher.append(key_matrix[p2+1][q2])
@@ -122,17 +123,17 @@ def decrypt_pf(key, cipher):
 		p2,q2=find_position(key_matrix,e[1])
 		#If letters on the same line, circular shift on the left
 		if p1==p2:
-			if q1==14:
+			if q1==(range_t-1):
 				q1=-1
-			if q2==14:
+			if q2==(range_t-1):
 				q2=-1
 			plaintext.append(key_matrix[p1][q1-1])
 			plaintext.append(key_matrix[p1][q2-1])		
 		#If letters in the same column, circular shift above
 		elif q1==q2:
-			if p1==14:
+			if p1==(range_t-1):
 				p1=-1;
-			if p2==14:
+			if p2==(range_t-1):
 				p2=-1;
 			plaintext.append(key_matrix[p1-1][q1])
 			plaintext.append(key_matrix[p2-1][q2])

@@ -1,7 +1,7 @@
 import sys
 
-alphabet_b=10
-alphabet_e=15*15+alphabet_b
+range_t=16
+alphabet_e=range_t*range_t
 
 def encrypt_va(key_s, message_s):
 	#Change it to array to use useful methods
@@ -14,22 +14,18 @@ def encrypt_va(key_s, message_s):
 		message.append(e)
 	
 	cipher=[]
-	i=0
 	for i in range(len(message)):
 		key.append(message[i])
 
-		p = ord(message[i]) - alphabet_b
-		k = ord(key[i]) - alphabet_b
-		c = (p+k)%alphabet_e + alphabet_b
+		p = ord(message[i])
+		k = ord(key[i])
+		c = (p+k)%alphabet_e
 		cipher.append(chr(c))
 
 	return ''.join(cipher)
 
 
 def decrypt_va(key_s, cipher_s):
-	alphabet_init=30
-	alphabet_size=226
-
 	#Change it to array to use useful methods
 	key_s=key_s
 	key=[]
@@ -43,9 +39,9 @@ def decrypt_va(key_s, cipher_s):
 	message=[]
 	i=0
 	for i in range(len(cipher)):
-		c = ord(cipher[i]) - alphabet_b
-		k = ord(key[i]) - alphabet_b
-		p = (c-k+alphabet_e)%alphabet_e + alphabet_b
+		c = ord(cipher[i])
+		k = ord(key[i])
+		p = (c-k+alphabet_e)%alphabet_e
 		message.append(chr(p))
 
 		key.append(message[i])
