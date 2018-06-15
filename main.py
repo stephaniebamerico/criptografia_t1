@@ -3,51 +3,44 @@ from rail_fence import encrypt_rf
 from rail_fence import decrypt_rf
 from playfair import encrypt_pf
 from playfair import decrypt_pf
+from vigenere_autokey import encrypt_va
+from vigenere_autokey import decrypt_va
 from gera_audio import geraSaida
 
 key_rf=raw_input()
-m=raw_input()
-aux=encrypt_rf(list(key_rf),list(m))
-encrypted_rf=''.join(aux)
-
-print "Texto Claro:"
-sys.stdout.write(m)
-print
-print
-
+#m=raw_input()
 key_pf=raw_input()
-print "Criptografado Rail Fence:"
-sys.stdout.write(encrypted_rf)
-print
-print
+key_va=raw_input()
 
-encrypted_pf=encrypt_pf(key_pf, encrypted_rf)
+entrada=open("entrada", "rb")
+m=entrada.read()
 
-print "Criptografado playfair:"
-sys.stdout.write(encrypted_pf)
-print
-print
+encrypted_pf=encrypt_pf(list(key_pf), list(m))
 
-geraSaida(encrypted_pf)
+encrypted_rf=encrypt_rf(list(key_rf), list(encrypted_pf))
 
-cipher=decrypt_pf(key_pf,encrypted_pf)
-print "Decriptado playfair:"
-sys.stdout.write(cipher)
-print
-print
+encrypted_va=encrypt_va(key_va, encrypted_rf)
 
-saida=decrypt_rf(list(key_rf),list(cipher))
-output=''.join(saida)
-print "Decriptado Rail Fence:"
-print output
+geraSaida(encrypted_va)
+
+saida=open("arquivo.bin", "rb")
+arq=saida.read()
+
+decrypted_va=decrypt_va(key_va, arq)
+
+decrypted_rf=decrypt_rf(list(key_rf), decrypted_va)
+
+decrypted_pf=decrypt_pf(key_pf,decrypted_rf)
+
+print decrypted_pf
+
+print chr(128)
 
 
 
 
-#    key=raw_input()
-#    with open("criptografado", "rb") as f:
-#        cipher=f.read()
 
-#    cipher=decrypt(key, cipher)
 
-#    sys.stdout.write(cipher)
+
+
+

@@ -147,24 +147,3 @@ def decrypt_pf(key, cipher):
 	
 	#Convert array to string
 	return ''.join(plaintext)
-
-##main
-order=input()
-if order==1:
-	key=raw_input()
-	with open("claro", "r") as f:
-	    message=f.read()
-	
-	message=encrypt_pf(key, message)
-
-	sys.stdout.write(message)
-elif order==2:
-	key=raw_input()
-	with open("criptografado", "rb") as f:
-	    cipher=f.read()
-
-	cipher=decrypt_pf(key, cipher)
-
-	sys.stdout.write(cipher)
-else:
-	print "Error"
