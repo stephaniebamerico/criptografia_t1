@@ -1,6 +1,6 @@
 import sys
 
-def encrypt(key_s, message_s):
+def encrypt_va(key_s, message_s):
 	alphabet_init=30
 	alphabet_size=226
 
@@ -25,7 +25,7 @@ def encrypt(key_s, message_s):
 
 	return ''.join(cipher)
 
-def decrypt(key_s, cipher_s):
+def decrypt_va(key_s, cipher_s):
 	alphabet_init=30
 	alphabet_size=226
 
@@ -51,23 +51,4 @@ def decrypt(key_s, cipher_s):
 
 	return ''.join(message)
 
-##main
-order=input()
-if order==1:
-	key=raw_input()
-	with open("claro", "r") as f:
-	    message=f.read()
-	
-	message=encrypt(key, message)
 
-	sys.stdout.write(message)
-elif order==2:
-	key=raw_input()
-	with open("criptografado", "rb") as f:
-	    cipher=f.read()
-
-	cipher=decrypt(key, cipher)
-
-	sys.stdout.write(cipher)
-else:
-	print "Error"

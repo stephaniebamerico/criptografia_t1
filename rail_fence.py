@@ -46,5 +46,5 @@ def decrypt_rf(key_s, message_s):
         x=x-1
     #for x in xrange(len(m)):
     #    sys.stdout.write( m[x])
-    return (m)
+    return list(m)
 
