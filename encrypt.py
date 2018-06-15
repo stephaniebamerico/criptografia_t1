@@ -8,6 +8,7 @@ from vigenere_autokey import decrypt_va
 from gera_audio import geraSaida
 
 key_rf=raw_input()
+#m=raw_input()
 key_pf=raw_input()
 key_va=raw_input()
 
@@ -22,23 +23,3 @@ encrypted_rf=encrypt_rf(list(key_rf), list(encrypted_pf))
 encrypted_va=encrypt_va(key_va, encrypted_rf)
 
 geraSaida(encrypted_va)
-
-saida=open("arquivo2.bin", "rb")
-arq=saida.read()
-
-decrypted_va=decrypt_va(key_va, arq)
-
-decrypted_rf=decrypt_rf(list(key_rf), decrypted_va)
-
-decrypted_pf=decrypt_pf(key_pf,decrypted_rf)
-
-sys.stdout.write(decrypted_pf)
-
-
-
-
-
-
-
-
-

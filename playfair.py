@@ -1,6 +1,6 @@
 import sys
 
-_trash='X'
+_trash=chr(254)
 
 range_t=16
 alphabet_e=range_t*range_t
@@ -142,9 +142,12 @@ def decrypt_pf(key, cipher):
 			plaintext.append(key_matrix[p2][q1])
 
 	#Remove "X" inserted in the encryption
-	for unused in range(len(plaintext)):
-		if _trash in plaintext:
-			plaintext.remove(_trash)
+	x = 0
+	while (x < len(plaintext)):
+		if x < len(plaintext) and plaintext[x] == _trash:
+			del plaintext[x]
+		x=x+1
+
 	
 	#Convert array to string
 	return ''.join(plaintext)

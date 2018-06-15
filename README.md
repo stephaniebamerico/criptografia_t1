@@ -1,6 +1,11 @@
-Trabalho de criptografia
+Para criptografar:
+O arquivo a ser criptografado é "entrada" por padrão.
+Rode o programa e digite as chaves 
+    $ python encrypt.py 
 
-O que tem feito:
-geraHeader: gera um binário com parte do header do wav
-escreveBinario: temporário. serve para testar, gera um arquivo binário (no momento de tamanho 50000)
-escreveELewav: escreve um arquivo wav que tem como dados o binário gerado pelo código anterior. Depois, lê p wav e escreve um arquivo só com os dados. Ainda em fase de testes.
+Para descriptografar:
+Rode o programa e digite as chaves
+    $ python decrypt.py
+O texto claro é impresso na saída padrão.
+
+

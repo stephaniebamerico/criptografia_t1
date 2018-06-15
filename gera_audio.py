@@ -40,17 +40,4 @@ def geraSaida (data):
 
     file.close
     header.close
-
-
-    #essa e a parte que le o arquivo
-    i=0
-    k=""
-    with open("saida.wav", 'rb') as file:
-        for byte in iter(lambda: file.read(1), b''):
-            i=i+1
-            if i>=41:
-                k=k+(byte)
-
-    file.close
-    file=open("arquivo.bin", "w+b")
-    file.write(k)
+    
