@@ -1,6 +1,6 @@
 import sys
 
-_trash=chr(228)
+_trash='X'
 
 range_t=16
 alphabet_e=range_t*range_t

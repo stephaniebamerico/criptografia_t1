@@ -52,10 +52,6 @@ int main(int argc, char const *argv[])
         printf("%d\n",wav_size2[i] );
     }
     
-    /*fwrite(riff_header, 1, 4, ptr);
-    fwrite((const void*) & wav_size, 4, 1, ptr);
-    fwrite(wave_header, 1, 4, ptr);*/
-   
 
     fwrite(fmt_header, 1, 4, ptr);
     fwrite((const void*) & fmt_chunk_size, 4, 1, ptr);
@@ -67,17 +63,6 @@ int main(int argc, char const *argv[])
     fwrite((const void*) & bit_depth, 2, 1, ptr);
     
 
-    /*fwrite(data_header, 1, 4, ptr);
-    fwrite((const void*) & data_bytes, 4, 1, ptr);
-    unsigned char buffer[128];
-    for (int i = 0; i < 128; ++i)
-    {
-        buffer[i]=i;
-    }
-    for (int i = 0; i < size; ++i)
-        fwrite(buffer, 1, 128, ptr);
-    fclose(ptr);
-    printf("%d\n",wav_size );*/
 
 
     return 0;

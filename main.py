@@ -34,8 +34,6 @@ decrypted_pf=decrypt_pf(key_pf,decrypted_rf)
 
 print decrypted_pf
 
-print chr(128)
-
 
 
 

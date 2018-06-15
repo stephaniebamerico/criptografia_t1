@@ -14,7 +14,7 @@ int main(int argc, char const *argv[])
     printf("Tamanho da entrada:\n");
     scanf ("%d", &SZ);
     FILE *ptr;
-    ptr = fopen("test.bin", "wb");
+    ptr = fopen("random.bin", "wb");
     unsigned char buffer[SZ];
     for (int i = 0; i < SZ; ++i)
     {

@@ -1,7 +1,7 @@
 import sys
 import numpy
 
-_trash=chr(227)
+_trash='Y'
 def encrypt_rf(key_s, message_s):
     keySize=len(key_s)
     v=[]
@@ -44,7 +44,5 @@ def decrypt_rf(key_s, message_s):
         if x < len(m) and m[x]==_trash:
             del m[x]
         x=x-1
-    #for x in xrange(len(m)):
-    #    sys.stdout.write( m[x])
     return list(m)
 

@@ -14,8 +14,7 @@ def geraSaida (data):
 
     size = len(data)
 
-    sz=size+36 #size eh o tam. do arquivo criptografado, 
-                      #100000 eh o tam um arquivo random pra deixar o audio mais comprido
+    sz=size+36 #size eh o tam. do arquivo criptografado
     #tentei fazer um "for" e deu ruim, fica faltando pedaco
     sz1=chr(sz%256)
     sz=sz/256
